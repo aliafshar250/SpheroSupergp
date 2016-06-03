@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash 
 
 THIS_DIR=$(cd $(dirname $0); pwd)
 cd $THIS_DIR
@@ -33,15 +33,16 @@ install_luarocks() {
 }
 
 install_rocks() {
-  ./.luarocks/bin/luarocks install luasocket
+  ./.luarocks/bin/luarocks install luasec
   RET=$?; if [ $RET -ne 0 ];
     then echo "Error. Exiting."; exit $RET;
   fi
 
-  ./.luarocks/bin/luarocks install oauth
+  ./.luarocks/bin/luarocks install lbase64 20120807-3
   RET=$?; if [ $RET -ne 0 ];
     then echo "Error. Exiting."; exit $RET;
   fi
+
 
   ./.luarocks/bin/luarocks install redis-lua
   RET=$?; if [ $RET -ne 0 ];
@@ -54,21 +55,6 @@ install_rocks() {
   fi
 
   ./.luarocks/bin/luarocks install fakeredis
-  RET=$?; if [ $RET -ne 0 ];
-    then echo "Error. Exiting."; exit $RET;
-  fi
-
-  ./.luarocks/bin/luarocks install luafilesystem
-  RET=$?; if [ $RET -ne 0 ];
-    then echo "Error. Exiting."; exit $RET;
-  fi
-
-  ./.luarocks/bin/luarocks install lub
-  RET=$?; if [ $RET -ne 0 ];
-    then echo "Error. Exiting."; exit $RET;
-  fi
-
-  ./.luarocks/bin/luarocks install luaexpat
   RET=$?; if [ $RET -ne 0 ];
     then echo "Error. Exiting."; exit $RET;
   fi
@@ -125,6 +111,7 @@ else
     echo "Run $0 install"
     exit 1
   fi
+  
 
   ./tg/bin/telegram-cli -k ./tg/tg-server.pub -s ./bot/seedbot.lua -l 1 -E $@
 fi
